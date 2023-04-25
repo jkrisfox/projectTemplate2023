@@ -1,4 +1,4 @@
-To run, first install docker and Visual Studio Code. Add the docker plugin to visual studio code. 
+To run, first install docker and Visual Studio Code. Add the docker plugin to visual studio code. If docker is not working as expected you can install mariadb or mysql directly using their respective installers. Please make sure it's version 5.7 for mysql not 8.0 as 8.0 has some password encryption that doesn't work with our mysql plugin from node. 
 
 1. Using the docker plugin, right click ont he docker-compose.yml file and perform a "Compose Up".
 2. Then in the docker tab, attach a shell. 
