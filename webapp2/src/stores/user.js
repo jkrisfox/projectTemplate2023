@@ -9,14 +9,12 @@ export const useUserStore = defineStore('user', () => {
     const error = ref("");
     
     function login({ email, password }) {
-        debugger;
         return axios.post("/api/login", { email, password }).then(
         (response) => {
             console.log(response);
             loggedIn = true;
         }, (response) => {
             hasError.value = true;
-            debugger;
             error.value = response.response.data.msg;
             return hasError;
         });
