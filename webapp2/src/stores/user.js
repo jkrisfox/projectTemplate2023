@@ -1,14 +1,24 @@
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const useUserStore = defineStore('user', () => {
 
-    let loggedIn = ref(false);
+    const loggedIn = ref(false);
+    const hasError = ref(false);
+    const error = ref("");
     
     function login({ email, password }) {
-        return axios.post("/api/login", { email, password }).then(() => {
+        debugger;
+        return axios.post("/api/login", { email, password }).then(
+        (response) => {
+            console.log(response);
             loggedIn = true;
+        }, (response) => {
+            hasError.value = true;
+            debugger;
+            error.value = response.response.data.msg;
+            return hasError;
         });
     }
     
@@ -18,6 +28,6 @@ export const useUserStore = defineStore('user', () => {
         });
     }
 
-    return { loggedIn, login, logout };
+    return { loggedIn, error, hasError, login, logout };
 
 });
