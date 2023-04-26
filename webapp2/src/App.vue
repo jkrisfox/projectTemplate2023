@@ -14,8 +14,10 @@
   
   function login() {
     const { email, password } = state;
-    store.login({email, password}).then(() => {
-      state.dialog = false;
+    store.login({email, password}).then((error) => {
+      if (!error) {
+        state.dialog = false;
+      }
     });
   }
 </script>
@@ -37,7 +39,14 @@
             width="400">
             <v-card>
               <v-card-text>
-                <v-form>
+                <v-alert
+                  density="compact"
+                  type="warning"
+                  icon="$warning"
+                  title="There was an issue logging in."
+                  v-if="store.hasError"
+                >{{ store.error }}</v-alert>
+                <v-form class="mt-2">
                   <v-text-field
                     label="Email address"
                     type="email"
