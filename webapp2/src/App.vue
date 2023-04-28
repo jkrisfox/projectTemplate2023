@@ -2,6 +2,7 @@
   import { RouterLink, RouterView } from 'vue-router'
   import { reactive } from 'vue';
   import HelloWorld from './components/HelloWorld.vue'
+  import Signup from './components/Signup.vue';
   import { useUserStore } from '@/stores/user';
   
   const store = useUserStore();
@@ -9,7 +10,8 @@
   const state = reactive({
     dialog: false,
     email: '',
-    password: ''
+    password: '',
+    signupShown: false
   });
   
   function login() {
@@ -19,6 +21,10 @@
         state.dialog = false;
       }
     });
+  }
+
+  function showSignup() {
+    state.signupShown = !state.signupShown;
   }
 </script>
 
@@ -46,7 +52,7 @@
                   title="There was an issue logging in."
                   v-if="store.hasError"
                 >{{ store.error }}</v-alert>
-                <v-form class="mt-2">
+                <v-form class="mt-2" v-if="!state.signupShown">
                   <v-text-field
                     label="Email address"
                     type="email"
@@ -58,9 +64,12 @@
                     v-model="state.password">
                   </v-text-field>
                 </v-form>
+                <Signup v-if="state.signupShown"/>
+
               </v-card-text>
               <v-card-actions class="d-flex flex-row-reverse ma-2">
                 <v-btn color="primary" @click="login">Login</v-btn>
+                <v-btn color="" @click="showSignup">Signup</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>

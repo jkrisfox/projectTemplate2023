@@ -17,5 +17,8 @@ export default (passport) => {
     req.logout();
     return res.send();
   });
+  router.post('/signup', (req, res) => {
+    
+  });
   return router;
 };

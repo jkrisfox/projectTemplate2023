@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <i>
+    <i style="border:2px solid red">
       <slot name="icon"></slot>
     </i>
     <div class="details">
